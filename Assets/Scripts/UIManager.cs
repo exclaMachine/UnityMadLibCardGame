@@ -4,8 +4,6 @@ using TMPro; // Include this namespace for Text Mesh Pro
 
 public class UIManager : MonoBehaviour
 {
-    public Image[] cardImages; // Array to hold references to the card UI Images
-    public TMP_Text[] cardTexts; // Array to hold references to the card Texts
 
     public GameObject cardPrefab; // Assign your card prefab in the Inspector
     public Transform cardParent; // Assign a parent transform to organize instantiated cards in the UI
