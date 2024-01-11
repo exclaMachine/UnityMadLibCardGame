@@ -7,6 +7,9 @@ public class UIManager : MonoBehaviour
     public Image[] cardImages; // Array to hold references to the card UI Images
     public TMP_Text[] cardTexts; // Array to hold references to the card Texts
 
+    public GameObject cardPrefab; // Assign your card prefab in the Inspector
+    public Transform cardParent; // Assign a parent transform to organize instantiated cards in the UI
+
     private Deck deck; // Reference to the Deck script
 
     public Sprite nounSprite; // Assign a gray sprite in the Inspector
@@ -22,12 +25,19 @@ public class UIManager : MonoBehaviour
 
     void DisplayCards()
     {
-        // Draw 5 cards from the deck and display them
+
         for (int i = 0; i < 5; i++)
         {
-            Card card = deck.DrawCard(); // Implement this method in Deck
-            cardImages[i].sprite = GetCardSprite(card); // Implement GetCardSprite based on card type
-            cardTexts[i].text = $"{card.Type}: {card.Word1} {card.Word2}";
+            // Instantiate a new card GameObject
+            GameObject newCard = Instantiate(cardPrefab, cardParent);
+
+            // Position the card, set the image and text, etc.
+            Card cardData = deck.DrawCard();
+            newCard.GetComponent<Image>().sprite = GetCardSprite(cardData);
+            newCard.GetComponentInChildren<TMP_Text>().text = $"{cardData.Type}: {cardData.Word1} {cardData.Word2}";
+            Debug.Log($"{cardData.Type}");
+
+            // Additional setup for the new card...
         }
     }
 
