@@ -3,14 +3,15 @@ using UnityEngine.UI; // Required for UI classes
 
 public class PlayerManager : MonoBehaviour
 {
-    public GameObject nounPrefab;
-    public GameObject verbPrefab;
-    public GameObject prepositionPrefab;
-    public GameObject noun2Prefab;
+    public enum SlotType { Noun, Verb, Preposition, Adjective, Adverb }
+
+    public GameObject nounSlotPrefab;
+    public GameObject verbSlotPrefab;
+    public GameObject prepositionSlotPrefab;
 
     public Transform[] playerAreas; // Assign in the Inspector, each area corresponds to a player
 
-    public void SetupPlayer(int playerIndex)
+    public void SetupPlayer(int playerIndex, SlotType[] slotOrder)
     {
         if (playerIndex < 0 || playerIndex >= playerAreas.Length)
         {
@@ -19,12 +20,33 @@ public class PlayerManager : MonoBehaviour
         }
 
         Transform playerArea = playerAreas[playerIndex];
+        foreach (var slotType in slotOrder)
+        {
+            GameObject slotPrefab = GetPrefabForSlotType(slotType);
+            if (slotPrefab != null)
+            {
+                Instantiate(slotPrefab, playerArea);
+            }
+            else
+            {
+                Debug.LogError("Prefab not found for slot type: " + slotType);
+            }
+        }
+    }
 
-        Instantiate(nounPrefab, playerArea);
-        Instantiate(verbPrefab, playerArea);
-        Instantiate(prepositionPrefab, playerArea);
-        Instantiate(noun2Prefab, playerArea);
-
-        // Additional setup as needed
+    private GameObject GetPrefabForSlotType(SlotType slotType)
+    {
+        switch (slotType)
+        {
+            case SlotType.Noun:
+                return nounSlotPrefab;
+            case SlotType.Verb:
+                return verbSlotPrefab;
+            case SlotType.Preposition:
+                return prepositionSlotPrefab;
+            // Add cases for other slot types as needed
+            default:
+                return null;
+        }
     }
 }
