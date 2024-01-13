@@ -11,6 +11,11 @@ public class PlayerManager : MonoBehaviour
 
     public Transform[] playerAreas; // Assign in the Inspector, each area corresponds to a player
 
+    void Start()
+    {
+        SetupPlayer(0, new SlotType[] { SlotType.Noun, SlotType.Verb, SlotType.Preposition, SlotType.Noun });
+    }
+
     public void SetupPlayer(int playerIndex, SlotType[] slotOrder)
     {
         if (playerIndex < 0 || playerIndex >= playerAreas.Length)
