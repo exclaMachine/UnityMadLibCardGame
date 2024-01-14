@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI; // Required for UI classes
+using TMPro;
 
 public class PlayerManager : MonoBehaviour
 {
     public enum SlotType { Noun, Verb, Preposition, Adjective, Adverb }
 
-    public GameObject nounSlotPrefab;
-    public GameObject verbSlotPrefab;
-    public GameObject prepositionSlotPrefab;
+    public GameObject slotPrefab;
 
     public Transform[] playerAreas; // Assign in the Inspector, each area corresponds to a player
 
@@ -25,36 +24,36 @@ public class PlayerManager : MonoBehaviour
         }
 
         Transform playerArea = playerAreas[playerIndex];
-        Vector3 nextSlotPosition = playerArea.position;
+        Vector3 nextSlotPosition = playerArea.position; // Starting position
 
         foreach (var slotType in slotOrder)
         {
-            GameObject slotPrefab = GetPrefabForSlotType(slotType);
-            if (slotPrefab != null)
-            {
-                GameObject slot = Instantiate(slotPrefab, nextSlotPosition, Quaternion.identity, playerArea);
-                nextSlotPosition.x += slot.GetComponent<RectTransform>().rect.width; // Adjust this value as needed
-            }
-            else
-            {
-                Debug.LogError("Prefab not found for slot type: " + slotType);
-            }
+            GameObject slotObject = Instantiate(slotPrefab, nextSlotPosition, Quaternion.identity, playerArea);
+            ConfigureSlot(slotObject, slotType);
+            nextSlotPosition.x += slotObject.GetComponent<RectTransform>().rect.width; // Adjust for spacing
         }
     }
 
-    private GameObject GetPrefabForSlotType(SlotType slotType)
+    private void ConfigureSlot(GameObject slotObject, SlotType slotType)
     {
+        // Set the text based on the slot type
+        TMP_Text textComponent = slotObject.GetComponentInChildren<TMP_Text>();
+        textComponent.text = slotType.ToString();
+
+        // Set the background color based on the slot type
+        Image backgroundImage = slotObject.GetComponent<Image>();
         switch (slotType)
         {
             case SlotType.Noun:
-                return nounSlotPrefab;
+                backgroundImage.color = Color.blue;
+                break;
             case SlotType.Verb:
-                return verbSlotPrefab;
+                backgroundImage.color = Color.yellow;
+                break;
             case SlotType.Preposition:
-                return prepositionSlotPrefab;
-            // Add cases for other slot types as needed
-            default:
-                return null;
+                backgroundImage.color = new Color(250 / 255f, 128 / 255f, 114 / 255f); // Salmon color
+                break;
+                // Add other cases as needed
         }
     }
 }
