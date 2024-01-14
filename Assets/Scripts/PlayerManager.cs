@@ -25,12 +25,15 @@ public class PlayerManager : MonoBehaviour
         }
 
         Transform playerArea = playerAreas[playerIndex];
+        Vector3 nextSlotPosition = playerArea.position;
+
         foreach (var slotType in slotOrder)
         {
             GameObject slotPrefab = GetPrefabForSlotType(slotType);
             if (slotPrefab != null)
             {
-                Instantiate(slotPrefab, playerArea);
+                GameObject slot = Instantiate(slotPrefab, nextSlotPosition, Quaternion.identity, playerArea);
+                nextSlotPosition.x += slot.GetComponent<RectTransform>().rect.width; // Adjust this value as needed
             }
             else
             {
