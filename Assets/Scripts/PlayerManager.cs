@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI; // Required for UI classes
 using TMPro;
 
+public enum SlotType { Noun, Verb, Preposition, Adjective, Adverb }
 public class PlayerManager : MonoBehaviour
 {
-    public enum SlotType { Noun, Verb, Preposition, Adjective, Adverb }
 
     public GameObject slotPrefab;
 

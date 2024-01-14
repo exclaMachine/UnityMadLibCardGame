@@ -35,19 +35,24 @@ public class UIManager : MonoBehaviour
             newCard.GetComponentInChildren<TMP_Text>().text = $"{cardData.Type}: {cardData.Word1} {cardData.Word2}";
             Debug.Log($"{cardData.Type}");
 
-            // Additional setup for the new card...
+            Draggable draggableComponent = newCard.GetComponent<Draggable>();
+            if (draggableComponent != null)
+            {
+                draggableComponent.cardType = cardData.Type;
+            }
         }
+
     }
 
     Sprite GetCardSprite(Card card)
     {
         switch (card.Type)
         {
-            case Card.CardType.Noun:
+            case SlotType.Noun:
                 return nounSprite;
-            case Card.CardType.Verb:
+            case SlotType.Verb:
                 return verbSprite;
-            case Card.CardType.Preposition:
+            case SlotType.Preposition:
                 return prepositionSprite;
             default:
                 return null; // Or a default sprite

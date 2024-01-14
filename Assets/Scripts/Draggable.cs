@@ -5,6 +5,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 {
     private Vector2 startPosition;
     private Transform originalParent;
+    public SlotType cardType;
 
     private Canvas canvas;
 

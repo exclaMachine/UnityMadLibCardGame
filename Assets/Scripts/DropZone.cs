@@ -1,20 +1,37 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI; // For working with UI elements
 
 public class DropZone : MonoBehaviour, IDropHandler
 {
-    //public CardType ExpectedType; // Enum for Noun, Verb, etc.
+    public SlotType expectedType;
+    public GameObject inputFieldPrefab; // Assign an input field prefab in the Inspector
 
     public void OnDrop(PointerEventData eventData)
     {
         Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
-        // if (draggable != null && /* check card type matches ExpectedType */)
-        // {
-        //     eventData.pointerDrag.transform.SetParent(transform);
-        //     // Additional logic for aligning the card in the drop zone
-        // }
+        if (draggable != null && draggable.cardType == expectedType)
+        {
+            // Assuming Draggable has a public property SlotType
+            PlaceCardInSlot(draggable);
+            ShowInputField();
+        }
+    }
+
+    private void PlaceCardInSlot(Draggable card)
+    {
+        // Logic to place the card visually in the slot
+        card.transform.SetParent(transform, false);
+        card.transform.position = transform.position;
+    }
+
+    private void ShowInputField()
+    {
+        GameObject inputField = Instantiate(inputFieldPrefab, transform.position, Quaternion.identity, transform);
+        // Configure the input field as needed, position it, etc.
     }
 }
+
 
 
 // In this `DropZone.cs` script, you need to implement logic to verify if the dropped card's type matches the expected type for that drop zone. You can extend the `Card` class to include a card type enumeration and use it for this check.

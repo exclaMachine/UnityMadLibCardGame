@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6071089921664592436}
   - component: {fileID: 8962705456907982652}
   - component: {fileID: 233924620523760096}
+  - component: {fileID: 7981307068245914580}
   m_Layer: 5
   m_Name: CardPreFab
   m_TagString: Untagged
@@ -57,8 +58,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -87,8 +88,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84356c3b3364148fa839f851362e62f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
+--- !u!114 &7981307068245914580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464211022022210991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b804ec8689eb412584c8389e9ede94a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &4298178025423055726
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +114,7 @@ GameObject:
   - component: {fileID: 467615878301021651}
   - component: {fileID: 3077796796423816434}
   m_Layer: 5
-  m_Name: CardType
+  m_Name: SlotType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,8 +157,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
