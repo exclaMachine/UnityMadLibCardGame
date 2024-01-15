@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
             Card cardData = deck.DrawCard();
             newCard.GetComponent<Image>().sprite = GetCardSprite(cardData);
             newCard.GetComponentInChildren<TMP_Text>().text = $"{cardData.Type}: {cardData.Word1} {cardData.Word2}";
-            Debug.Log($"{cardData.Type}");
+            // Debug.Log($"{cardData.Type}");
 
             Draggable draggableComponent = newCard.GetComponent<Draggable>();
             if (draggableComponent != null)

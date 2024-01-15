@@ -31,6 +31,12 @@ public class PlayerManager : MonoBehaviour
             GameObject slotObject = Instantiate(slotPrefab, nextSlotPosition, Quaternion.identity, playerArea);
             ConfigureSlot(slotObject, slotType);
             nextSlotPosition.x += slotObject.GetComponent<RectTransform>().rect.width; // Adjust for spacing
+
+            DropZone dropZone = slotObject.GetComponent<DropZone>();
+            if (dropZone != null)
+            {
+                dropZone.expectedType = slotType; // Set the expected type for the slot
+            }
         }
     }
 

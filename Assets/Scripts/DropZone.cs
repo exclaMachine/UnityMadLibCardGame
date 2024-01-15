@@ -10,9 +10,11 @@ public class DropZone : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         Draggable draggable = eventData.pointerDrag.GetComponent<Draggable>();
+        //Debug.Log($"{expectedType} OnDrop1");
         if (draggable != null && draggable.cardType == expectedType)
         {
             // Assuming Draggable has a public property SlotType
+            //Debug.Log($"{expectedType} OnDrop2");
             PlaceCardInSlot(draggable);
             ShowInputField();
         }
@@ -28,7 +30,9 @@ public class DropZone : MonoBehaviour, IDropHandler
     private void ShowInputField()
     {
         GameObject inputField = Instantiate(inputFieldPrefab, transform.position, Quaternion.identity, transform);
-        // Configure the input field as needed, position it, etc.
+        // Reset localPosition to zero if you want it to be exactly at the slot's position
+        inputField.transform.localPosition = Vector3.zero;
+
     }
 }
 
