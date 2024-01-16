@@ -29,11 +29,39 @@ public class DropZone : MonoBehaviour, IDropHandler
 
     private void ShowInputField()
     {
-        GameObject inputField = Instantiate(inputFieldPrefab, transform.position, Quaternion.identity, transform);
+        GameObject inputFieldObj = Instantiate(inputFieldPrefab, transform.position, Quaternion.identity, transform);
         // Reset localPosition to zero if you want it to be exactly at the slot's position
-        inputField.transform.localPosition = Vector3.zero;
 
+        inputFieldObj.transform.localPosition = Vector3.zero;
+
+        InputField inputField = inputFieldObj.GetComponent<InputField>();
+        if (inputField != null)
+        {
+            inputField.onEndEdit.AddListener(delegate { HandleInputSubmit(inputField); });
+        }
     }
+
+
+    private void HandleInputSubmit(InputField inputField)
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            // Convert input field to text
+            ConvertInputToText(inputField);
+        }
+    }
+
+    private void ConvertInputToText(InputField inputField)
+    {
+        string inputText = inputField.text;
+        Color slotColor = GetComponent<Image>().color; // Get the color of the slot
+
+        // Create a new Text or TextMeshPro element here
+        // Set its text to inputText and background color to slotColor
+
+        Destroy(inputField.gameObject); // Destroy the input field
+    }
+
 }
 
 
