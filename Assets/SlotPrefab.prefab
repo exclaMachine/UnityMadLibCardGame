@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expectedType: 0
   inputFieldPrefab: {fileID: 1541856456125204721, guid: f00c6de718f9844a9956df75187ab8f8, type: 3}
+  textElementPrefab: {fileID: 5090214030423666967, guid: 74e5807ae966646f1830b15d8acc85c4, type: 3}
 --- !u!1 &4602337276981286465
 GameObject:
   m_ObjectHideFlags: 0

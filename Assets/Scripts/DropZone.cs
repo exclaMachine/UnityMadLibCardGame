@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI; // For working with UI elements
+using TMPro;
 
 public class DropZone : MonoBehaviour, IDropHandler
 {
@@ -31,36 +32,54 @@ public class DropZone : MonoBehaviour, IDropHandler
     {
         GameObject inputFieldObj = Instantiate(inputFieldPrefab, transform.position, Quaternion.identity, transform);
         // Reset localPosition to zero if you want it to be exactly at the slot's position
+        // Debug.Log(inputFieldObj != null ? "Input Field Instantiated" : "Instantiation Failed");
 
-        inputFieldObj.transform.localPosition = Vector3.zero;
+        // inputFieldObj.transform.localPosition = Vector3.zero;
 
-        InputField inputField = inputFieldObj.GetComponent<InputField>();
-        if (inputField != null)
-        {
-            inputField.onEndEdit.AddListener(delegate { HandleInputSubmit(inputField); });
-        }
+        // InputField inputField = inputFieldObj.GetComponent<InputField>();
+        // Debug.Log(inputField != null ? "Input Field Component Found" : "Input Field Component Not Found");
+
     }
 
 
-    private void HandleInputSubmit(InputField inputField)
+    private void HandlePlayerInput(string sUserWord)
     {
+        Debug.Log($"User Word {sUserWord}");
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             // Convert input field to text
-            ConvertInputToText(inputField);
+            //ConvertInputToText(inputField);
         }
     }
+
+    [SerializeField] private GameObject textElementPrefab; // Assign this in the inspector
 
     private void ConvertInputToText(InputField inputField)
     {
         string inputText = inputField.text;
         Color slotColor = GetComponent<Image>().color; // Get the color of the slot
 
-        // Create a new Text or TextMeshPro element here
-        // Set its text to inputText and background color to slotColor
+        // Instantiate the text element prefab
+        GameObject textElementObj = Instantiate(textElementPrefab, inputField.transform.position, Quaternion.identity, transform);
+        textElementObj.transform.localPosition = Vector3.zero; // Position it at the slot's center
+        Debug.Log("text Converted");
 
-        Destroy(inputField.gameObject); // Destroy the input field
+        // Set the text and background color
+        TMP_Text textComponent = textElementObj.GetComponentInChildren<TMP_Text>();
+        if (textComponent != null)
+        {
+            textComponent.text = inputText;
+        }
+
+        Image bgImage = textElementObj.GetComponent<Image>();
+        if (bgImage != null)
+        {
+            bgImage.color = slotColor;
+        }
+
+        Destroy(inputField.gameObject); // Remove the input field
     }
+
 
 }
 
