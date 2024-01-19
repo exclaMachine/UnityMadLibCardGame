@@ -41,17 +41,6 @@ public class DropZone : MonoBehaviour, IDropHandler
 
     }
 
-
-    private void HandlePlayerInput(string sUserWord)
-    {
-        Debug.Log($"User Word {sUserWord}");
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            // Convert input field to text
-            //ConvertInputToText(inputField);
-        }
-    }
-
     [SerializeField] private GameObject textElementPrefab; // Assign this in the inspector
 
     private void ConvertInputToText(InputField inputField)
