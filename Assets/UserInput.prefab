@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9095212018867690450}
   - component: {fileID: 1520116924407127019}
   - component: {fileID: 5450001284705267622}
-  - component: {fileID: 5257567224008479766}
+  - component: {fileID: 3293867326828661257}
   m_Layer: 5
   m_Name: UserInput
   m_TagString: Untagged
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5257567224008479766}
-        m_TargetAssemblyTypeName: InputFieldHandler, Assembly-CSharp
+      - m_Target: {fileID: 8938489967922845192, guid: abc4e7d38141a421d9d24b7f6a7cbff6, type: 3}
+        m_TargetAssemblyTypeName: DropZone, Assembly-CSharp
         m_MethodName: HandlePlayerInput
         m_Mode: 0
         m_Arguments:
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
---- !u!114 &5257567224008479766
+--- !u!114 &3293867326828661257
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -197,9 +197,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1541856456125204721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54ada83cd82ae4366aef1460c0a5612e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b804ec8689eb412584c8389e9ede94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expectedType: 0
+  inputFieldPrefab: {fileID: 0}
+  currentInputField: {fileID: 0}
+  textContainer: {fileID: 0}
+  textElementPrefab: {fileID: 5090214030423666967, guid: 74e5807ae966646f1830b15d8acc85c4, type: 3}
 --- !u!1 &6439063509433018662
 GameObject:
   m_ObjectHideFlags: 0

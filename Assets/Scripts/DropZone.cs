@@ -7,6 +7,10 @@ public class DropZone : MonoBehaviour, IDropHandler
 {
     public SlotType expectedType;
     public GameObject inputFieldPrefab; // Assign an input field prefab in the Inspector
+    public TMP_InputField currentInputField;
+    private Vector3 inputFieldPosition;
+    public RectTransform textContainer;
+
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -30,43 +34,95 @@ public class DropZone : MonoBehaviour, IDropHandler
 
     private void ShowInputField()
     {
-        GameObject inputFieldObj = Instantiate(inputFieldPrefab, transform.position, Quaternion.identity, transform);
-        // Reset localPosition to zero if you want it to be exactly at the slot's position
-        // Debug.Log(inputFieldObj != null ? "Input Field Instantiated" : "Instantiation Failed");
 
-        // inputFieldObj.transform.localPosition = Vector3.zero;
+        TMP_InputField inputFieldObj = Instantiate(inputFieldPrefab, transform.position, Quaternion.identity, transform).GetComponent<TMP_InputField>();
+        inputFieldObj.transform.localPosition = Vector3.zero;
 
-        // InputField inputField = inputFieldObj.GetComponent<InputField>();
-        // Debug.Log(inputField != null ? "Input Field Component Found" : "Input Field Component Not Found");
+        currentInputField = inputFieldObj;
+
+        Debug.Log(currentInputField != null ? "Input Field Component Found" : "Input Field Component Not Found");
+
+        inputFieldPosition = inputFieldObj.transform.position;
 
     }
 
     [SerializeField] private GameObject textElementPrefab; // Assign this in the inspector
 
-    private void ConvertInputToText(InputField inputField)
+    public void ConvertInputToText(string inputText)
     {
-        string inputText = inputField.text;
-        Color slotColor = GetComponent<Image>().color; // Get the color of the slot
 
-        // Instantiate the text element prefab
-        GameObject textElementObj = Instantiate(textElementPrefab, inputField.transform.position, Quaternion.identity, transform);
-        textElementObj.transform.localPosition = Vector3.zero; // Position it at the slot's center
-        Debug.Log("text Converted");
 
+        GameObject textElementObj = Instantiate(textElementPrefab, inputFieldPosition + new Vector3(0, -30f, 0), Quaternion.identity);
+        textElementObj.transform.SetParent(textContainer, false);
+        textElementObj.transform.localPosition = new Vector3(0, -30f, 0); // Adjust this offset as needed
         // Set the text and background color
         TMP_Text textComponent = textElementObj.GetComponentInChildren<TMP_Text>();
-        if (textComponent != null)
+        if (textElementObj != null)
         {
+
             textComponent.text = inputText;
         }
+        else
+        {
+            Debug.Log("text component null");
+        }
+
+        Debug.Log("Text object position: " + textElementObj.transform.position);
+
 
         Image bgImage = textElementObj.GetComponent<Image>();
         if (bgImage != null)
         {
-            bgImage.color = slotColor;
+            bgImage.color = GetComponent<Image>().color; // Get the color of the slot and set it as the background color of the text
         }
 
-        Destroy(inputField.gameObject); // Remove the input field
+        RectTransform rectTransform = textElementObj.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.anchoredPosition = new Vector2(0, -30f); // Adjust this as needed
+            rectTransform.sizeDelta = new Vector2(200, 50); // Set a default size
+        }
+        else
+        {
+            Debug.LogError("RectTransform not found on the text element object.");
+        }
+
+        //Debug.Log(currentInputField != null ? "CurrInput Field Component Found" : "Curr Input Field Component Not Found");
+        // string inputText = currentInputField.text;
+        // Color slotColor = GetComponent<Image>().color; // Get the color of the slot
+
+        // // Instantiate the text element prefab
+        // GameObject textElementObj = Instantiate(textElementPrefab, currentInputField.transform.position, Quaternion.identity, transform);
+        // textElementObj.transform.localPosition = Vector3.zero; // Position it at the slot's center
+        // Debug.Log("text Converted");
+
+        // // Set the text and background color
+        // TMP_Text textComponent = textElementObj.GetComponentInChildren<TMP_Text>();
+        // if (textComponent != null)
+        // {
+        //     textComponent.text = inputText;
+        // }
+
+        // Image bgImage = textElementObj.GetComponent<Image>();
+        // if (bgImage != null)
+        // {
+        //     bgImage.color = slotColor;
+        // }
+
+        // Destroy(currentInputField.gameObject); // Remove the input field
+
+    }
+
+    public void HandlePlayerInput(string sUserWord)
+    {
+        // dropZone = FindObjectOfType<DropZone>();
+        Debug.Log($"User Word {sUserWord}");
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            Debug.Log(currentInputField != null ? "CurrInput Field Component Found" : "Curr Input Field Component Not Found");
+
+            ConvertInputToText(sUserWord);
+        }
     }
 
 
