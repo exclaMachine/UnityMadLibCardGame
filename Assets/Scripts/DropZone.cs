@@ -40,7 +40,7 @@ public class DropZone : MonoBehaviour, IDropHandler
 
         currentInputField = inputFieldObj;
 
-        Debug.Log(currentInputField != null ? "Input Field Component Found" : "Input Field Component Not Found");
+        //Debug.Log(currentInputField != null ? "Input Field Component Found" : "Input Field Component Not Found");
 
         inputFieldPosition = inputFieldObj.transform.position;
 
